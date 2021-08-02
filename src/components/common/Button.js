@@ -1,20 +1,43 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 
-export const Button = styled.button`
+const largeStyles = ({ large }) => {
+  if (large) {
+    return css`
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1.5em;
+    `;
+  } else {
+    return css`
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 1em;
+    `;
+  }
+};
+
+const Button = styled.button`
   color: white;
-  background: #f8049c;
+  background: ${(p) =>
+    p.secondary ? p.theme.secondaryColor : p.theme.primaryColor};
   font-weight: bold;
-  padding: 8px;
-  border-radius: 4px;
+  ${largeStyles}
+
   box-shadow: none;
-  font-size: 1em;
   border: none;
   width: 100%;
   display: block;
   white-space: none;
-
   &:disabled {
     background: #eee;
     color: #666;
   }
 `;
+
+Button.propTypes = {
+  large: PropTypes.bool,
+  secondary: PropTypes.bool,
+};
+
+export { Button };
